@@ -7,10 +7,11 @@ const ShoppingList = props => {
       <ul>
         {props.items.map(item => {
           return (
-            <li>Name: {item.name} Quantity: {item.quantity}</li>
+            <li>Name: {item.name} Quantity: {item.quantity} Cost: $ {item.cost}</li>
           )
         })}
       </ul>
+      <p>Total: ${props.total}</p>
       <Link to='/addItem'>Add an Item</Link>
     </div>
   )

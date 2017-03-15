@@ -3,14 +3,15 @@ import React from 'react'
 const App = React.createClass({
   getInitialState () {
     return {
-      items: []
+      items: [],
+      total: 0
     }
   },
   render () {
-    const items = this.state.items
     const childrenWithItems = React.Children.map(this.props.children,
       child => React.cloneElement(child, {
-        items: items,
+        items: this.state.items,
+        total: this.state.total,
         addItem: this.addItem
       })
     )
@@ -21,19 +22,15 @@ const App = React.createClass({
       </div>
     )
   },
-  addItem (item) {
+  addItem (item, total) {
     this.setState({
       items: [
         ...this.state.items,
         item
-      ]
+      ],
+      total: total
     })
   }
 })
-// const App = () => {
-//   return (
-//     <h1>React development has begun!</h1>
-//   )
-// }
 
 export default App

@@ -6,8 +6,10 @@ const AddItem = React.createClass({
     return {
       item: {
         name: '',
-        quantity: 0
-      }
+        quantity: 0,
+        cost: 0
+      },
+      total: 0
     }
   },
   render () {
@@ -22,7 +24,11 @@ const AddItem = React.createClass({
           onChange={this.updateFormState}
           value={this.state.item.quantity} />
 
-        <button onClick={() => this.props.addItem(this.state.item)}>Add Item</button>
+        <input type='text' name='cost'
+          onChange={this.updateFormState}
+          value={this.state.item.cost} />
+
+        <button onClick={() => this.props.addItem(this.state.item, this.state.total)}>Add Item</button>
         <Link to='/'>Go to Shopping List</Link>
       </div>
     )
@@ -32,26 +38,16 @@ const AddItem = React.createClass({
     const newState = {
       item: {
         name: this.state.item.name,
-        quantity: this.state.item.quantity
-      }
+        quantity: this.state.item.quantity,
+        cost: this.state.item.cost
+      },
+      total: this.state.total
     }
     newState.item[field] = evt.target.value
+    if (field === 'cost') {
+      newState.total = Number(newState.item.cost) + newState.total
+    }
     this.setState(newState)
   }
 })
 export default AddItem
-// const Add = props => {
-//   return (
-//     <div className='shoppingList'>
-//       <ul>
-//         {props.items.map(item => {
-//           return (
-//             <li>{item.name}</li>
-//           )
-//         })}
-//       </ul>
-//       <Link to='/addItem'>Add an Item</Link>
-//     </div>
-//   )
-// }
-// export default ShoppingList
